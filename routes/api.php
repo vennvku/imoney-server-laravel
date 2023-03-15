@@ -30,18 +30,20 @@ Route::group(['prefix' => 'users'], function () {
 Route::group(['middleware' => 'auth:sanctum'], function() {
 
     Route::group(['prefix' => 'users'], function () {
-        Route::post('/signout', [AuthController::class, 'signout']);
         Route::get('/{id}', [AuthController::class, 'user']);
+        Route::post('/signout', [AuthController::class, 'signout']);
     });
 
     Route::group(['prefix' => 'categorys'], function () {
         Route::get('/', [CategoryController::class, 'index']);
-    }); 
+    });
 
     Route::group(['prefix' => 'transactions'], function () {
         Route::post('/create', [TransactionController::class, 'create']);
         Route::get('/', [TransactionController::class, 'index']);
-    }); 
+        Route::put('/update/{id}', [TransactionController::class, 'update']);
+        Route::delete('/{id}', [TransactionController::class, 'destroy']);
+    });
 
 });
 
